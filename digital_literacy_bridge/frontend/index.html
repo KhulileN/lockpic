@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Literacy Bridge</title>
+  <link rel="stylesheet" href="/static/css/main.css">
+  <meta name="description" content="Learn digital skills with accessible, step-by-step lessons.">
+  <!-- Preconnect for fonts if using external fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- Skip to main content link for keyboard users -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+</head>
+<body>
+  <header role="banner">
+    <nav aria-label="Main navigation">
+      <a href="/" class="logo" aria-label="Digital Literacy Bridge Home">
+        <span role="img" aria-label="book">📚</span>
+        <span>Digital Literacy Bridge</span>
+      </a>
+      <div class="nav-controls">
+        <button id="lang-toggle" class="btn btn-small" aria-label="Change language">🌐 English</button>
+        <button id="text-size-toggle" class="btn btn-small" aria-label="Increase text size">A+</button>
+        <button id="tts-toggle" class="btn btn-small" aria-label="Toggle text-to-speech">🔊</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" role="main" tabindex="-1">
+    <div id="app" aria-live="polite" aria-atomic="false">
+      <div class="loading" aria-busy="true" aria-label="Loading courses">
+        <div class="spinner" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        <p>Loading courses...</p>
+      </div>
+    </div>
+  </main>
+
+  <footer role="contentinfo">
+    <p>Helping everyone connect with technology</p>
+    <div class="footer-controls">
+      <button onclick="window.speechSynthesis?.cancel()" class="btn btn-secondary">
+        Stop audio
+      </button>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/app.js"></script>
+  <script>
+    // Register service worker for offline capability
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/static/pwa/sw.js')
+          .then(reg => console.log('Service Worker registered:', reg.scope))
+          .catch(err => console.log('Service Worker registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>
